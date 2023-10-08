@@ -1,0 +1,45 @@
+This code uses the OpenCV and MediaPipe libraries to perform real-time hand tracking using your computer's webcam. Here's an explanation of how the code works:
+
+1. **Importing Libraries**:
+   - `cv2`: This library is OpenCV, used for computer vision tasks.
+   - `mediapipe as mp`: This library provides various computer vision and machine learning tools, including hand tracking.
+
+2. **Initializing Video Capture**:
+   - `cap = cv2.VideoCapture(0)`: It initializes a video capture object, which connects to your computer's default camera (usually the webcam).
+
+3. **Initializing Hand Tracking**:
+   - `mpHands = mp.solutions.hands`: This creates an instance of the MediaPipe Hand model.
+   - `hands = mpHands.Hands()`: It initializes the hand tracking model.
+   - `mpDraw = mp.solutions.drawing_utils`: This provides utility functions to draw landmarks and connections on the image.
+
+4. **Capturing and Processing Frames in a Loop**:
+   - The code enters a `while` loop, where it continuously captures frames from the webcam.
+
+5. **Reading and Converting Frames**:
+   - `success, img = cap.read()`: It reads a frame from the webcam and stores it in the `img` variable.
+   - `imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)`: Converts the frame from BGR to RGB color format, as required by MediaPipe.
+
+6. **Hand Tracking**:
+   - `results = hands.process(imgRGB)`: It processes the RGB frame using the MediaPipe hand tracking model to detect hand landmarks.
+
+7. **Drawing Hand Landmarks**:
+   - If hand landmarks are detected (`results.multi_hand_landmarks`), the code loops through each detected hand and its landmarks.
+   - It extracts the coordinates of each landmark and draws them as circles on the frame.
+   - It also draws lines connecting the landmarks to visualize the hand's structure.
+
+8. **Calculating and Displaying FPS (Frames Per Second)**:
+   - The code calculates and displays the frames per second (FPS) on the screen to monitor the performance of the hand tracking.
+
+9. **Displaying the Processed Frame**:
+   - `cv2.imshow("Image", img)`: It displays the processed image with drawn landmarks and FPS information.
+
+10. **Exiting the Loop**:
+    - The loop continues until you press the 'q' key. When you do, the loop breaks, and the program releases the webcam (`cap.release()`) and closes the display window (`cv2.destroyAllWindows()`).
+
+11. **Main Function Check**:
+    - `if __name__ == "__main__":`: This ensures that the code inside the `hand_tracking_module()` function is only executed if the script is run directly (not when imported as a module).
+
+12. **Running the Hand Tracking Module**:
+    - `hand_tracking_module()`: This is the main function that performs the hand tracking. It's called when the script is run.
+
+As a result, when you run the script, it captures video from your webcam, processes it for hand tracking, and displays the real-time video with hand landmarks drawn on it. You can exit the program by pressing the 'q' key.
